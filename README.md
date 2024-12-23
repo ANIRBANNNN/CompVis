@@ -10,4 +10,4 @@ Implementation of most common computer vision algorithms.
 
 
 ## Image source
-Taken by me at IIT Karagpur
+Taken by me at IIT Kharagpur
