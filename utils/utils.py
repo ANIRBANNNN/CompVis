@@ -1,4 +1,14 @@
 import numpy as np
+import matplotlib
+
+try:
+    import tkinter
+    print("tkinter is installed, using it as backend for matplotlib")
+    matplotlib.use('TkAgg')
+except ImportError:
+    print("tkinter is not installed, using default backend for matplotlib")
+
+
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import os
@@ -9,10 +19,7 @@ def openRGB(path):
 
 def showRGB(imgarray):
     plt.imshow(imgarray)
-    # plt.show() 
-
-def conv2d(img, filter):
-    pass
+    plt.show() 
 
 
 def FFT(x):
@@ -49,9 +56,9 @@ def inverse_image_FFT(fft_image):
 
     return working_image
 
-def conv2D(image_array, kernel, pad=True):
+def conv2D(image_array, kernel, pad=True, dtype=np.uint8):
     o_height, o_width = image_array.shape
-    convoluted_image = np.zeros((o_height, o_width))
+    convoluted_image = np.zeros((o_height, o_width), dtype=dtype)
     kernel_len = len(kernel)
     pad_amount = int(len(kernel)/2)
 
@@ -63,7 +70,7 @@ def conv2D(image_array, kernel, pad=True):
     # print(image_array)
     for i in range(o_height):
         for j in range(o_width):
-            convoluted_image[i][j] = np.sum(image_array[i:i+kernel_len,j:j+kernel_len]*kernel)
+            convoluted_image[i][j] = np.sum(image_array[i:i+kernel_len,j:j+kernel_len]*kernel, dtype=dtype)
 
     return convoluted_image
 
@@ -71,7 +78,7 @@ class filters:
     # type = ["mean", "gausian"]
     def generateKernel(kernel_type='mean', kernel_size = 3):
         if kernel_type == 'mean':
-            return np.ones((kernel_size, kernel_size))
+            return np.ones((kernel_size, kernel_size))/(kernel_size**2)
 
         pass
 
