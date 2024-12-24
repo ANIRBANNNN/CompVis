@@ -1,5 +1,5 @@
 import argparse
-from utils.utils import openRGB, showRGB, filters, conv2D
+from utils.utils import openRGB, showRGB, filters, conv2D, compareToOriginal
 import numpy as np
 
 parser = argparse.ArgumentParser()
@@ -7,6 +7,10 @@ parser.add_argument('--input', type=str,
                     help='path to the input image')
 parser.add_argument('--kernel_size', type=int, default=3,
                     help='size of the filter')
+
+parser.add_argument('--save', action='store_true')
+parser.add_argument('--compare', action='store_true')
+
 
 args = parser.parse_args()
 
@@ -23,4 +27,8 @@ if __name__ == "__main__":
     result[:,:,1] = conv2D(img[:,:,1], kernel)
     result[:,:,2] = conv2D(img[:,:,2], kernel)
 
-    showRGB(result)
+    if args.save and args.compare:
+        compareToOriginal(img, result, fig_title="Mean Filter", filename="mean_result.jpg")
+    else:
+        showRGB(result)
+

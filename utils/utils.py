@@ -17,9 +17,22 @@ def openRGB(path):
     assert os.path.exists(path), f"Image path doesn't exist. {path}"
     return mpimg.imread(path)
 
-def showRGB(imgarray):
+def showRGB(imgarray, axis='off'):
     plt.imshow(imgarray)
+    plt.axis(axis)
     plt.show() 
+
+def compareToOriginal(og, new, fig_title, filename=None, save_dir="./results"):
+    plt.tight_layout()
+    fig, (ax1, ax2) = plt.subplots(1,2, constrained_layout=True)
+    fig.suptitle(fig_title)
+
+    ax1.imshow(og)
+    ax2.imshow(new)
+
+    if filename:
+        fig.savefig(os.path.join(save_dir, filename))
+    pass
 
 
 def FFT(x):

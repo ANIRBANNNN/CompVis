@@ -8,8 +8,13 @@ Implementation of most common computer vision algorithms.
 * pillow
 
 ## How to run
+
+### mean filter
 Example
-``python3 -m spatial_filters.mean --input ./images/cat_512.jpg``
+``python3 -m spatial_filters.mean --input ./images/cat_512.jpg --kernel_size 5``
+
+Results
+![Result of mean filter](./results/mean_result.jpg)
 
 ## TODO
 * Spetial filters (~~mean~~, median, gaussian)
