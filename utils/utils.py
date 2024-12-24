@@ -89,14 +89,14 @@ def conv2D(image_array, kernel, pad=True, dtype=np.uint8):
 
 class filters:
     # type = ["mean", "gausian"]
-    def generateKernel(kernel_type='mean', kernel_size = 3):
+    def generateKernel(self, kernel_type, kernel_size = 3, sigma=1):
         if kernel_type == 'mean':
             return np.ones((kernel_size, kernel_size))/(kernel_size**2)
-
-        pass
+        if kernel_type == "Gaussian":
+            return self.Gaussian_kernel(kernel_size, sigma)
 
     def Gaussian(self, x,y, variance):
-        return np.exp((x**2 + y**2)/(-2*variance))/(2*np.pi*variance)
+        return np.exp((x**2 + y**2)/(-2*variance))/(np.sqrt(2*np.pi)*variance)
 
     def Gaussian_kernel(self, kernel_size, sigma):
         kernel = np.zeros((kernel_size, kernel_size))
@@ -104,7 +104,7 @@ class filters:
         for i in range(kernel_size):
             for j in range(kernel_size):
                 kernel[i - center_offset][j-center_offset] = self.Gaussian(i,j, sigma**2)
-
+        print("here")
         return kernel
 
     
