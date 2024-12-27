@@ -24,7 +24,7 @@ def showRGB(imgarray, axis='off'):
 
 def compareToOriginal(og, new, fig_title, filename=None, save_dir="./results"):
     plt.tight_layout()
-    fig, (ax1, ax2) = plt.subplots(1,2, constrained_layout=True)
+    fig, (ax1, ax2) = plt.subplots(1,2, constrained_layout=True, figsize=(10,5))
     fig.suptitle(fig_title)
 
     ax1.imshow(og)
@@ -96,15 +96,18 @@ class filters:
             return self.Gaussian_kernel(kernel_size, sigma)
 
     def Gaussian(self, x,y, variance):
-        return np.exp((x**2 + y**2)/(-2*variance))/(np.sqrt(2*np.pi)*variance)
+        kernel = np.exp((x**2 + y**2)/(-2*variance))/(np.sqrt(2*np.pi)*variance)
+        return kernel
 
     def Gaussian_kernel(self, kernel_size, sigma):
         kernel = np.zeros((kernel_size, kernel_size))
         center_offset = kernel_size//2
         for i in range(kernel_size):
             for j in range(kernel_size):
-                kernel[i - center_offset][j-center_offset] = self.Gaussian(i,j, sigma**2)
+                kernel[i - center_offset][j-center_offset] = self.Gaussian(i - center_offset,j-center_offset, sigma**2)
         print("here")
+        # kernel /= np.sum(kernel)
+
         return kernel
 
     
