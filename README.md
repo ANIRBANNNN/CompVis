@@ -20,6 +20,9 @@ Results
 * Spetial filters (~~mean~~, median, gaussian)
 * Frequency domain filter (High pass, low pass, ideal, gaussian, butterworth)
 * Pixel wise operations (contrast, brightness, grayscale)
+* White Balancing, Retinex
+* Edge Detection: (LoG, Canny)
+* Local Descriptors: (corner, SIFT, Gabor Filter, LBP)
 * Add more
 
 
