@@ -96,7 +96,7 @@ class filters:
             return self.Gaussian_kernel(kernel_size, sigma)
 
     def Gaussian(self, x,y, variance):
-        kernel = np.exp((x**2 + y**2)/(-2*variance))/(np.sqrt(2*np.pi)*variance)
+        kernel = np.exp((x**2 + y**2)/(-2*variance))/((2*np.pi)*variance)
         return kernel
 
     def Gaussian_kernel(self, kernel_size, sigma):
