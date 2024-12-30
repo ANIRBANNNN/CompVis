@@ -7,6 +7,8 @@ Implementation of most common computer vision algorithms.
 * numpy
 * pillow
 
+run ``pip install -r requirements.txt``
+
 ## How to run
 
 ### mean filter
