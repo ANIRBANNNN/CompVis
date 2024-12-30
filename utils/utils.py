@@ -13,9 +13,26 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import os
 
-def openRGB(path):
+def openRGB(path, grayscale = False):
     assert os.path.exists(path), f"Image path doesn't exist. {path}"
     return mpimg.imread(path)
+
+def grayscale(img, dtype=np.uint8):
+    # From openCV documentation Y←0.299⋅R+0.587⋅G+0.114⋅B
+    h, w = img.shape[:2]
+    result = np.zeros((h,w))
+
+    for i in range(h):
+        for j in range(w):
+            result[i,j] = np.dot(img[i,j,:], [0.299, 0.587, 0.114])
+    
+    return np.clip(result, 0, 255).astype(dtype)
+
+def isGray(img):
+    shape = img.shape
+    if len(shape) == 2:
+        return True
+    return shape[2] == 1
 
 def showRGB(imgarray, axis='off'):
     plt.imshow(imgarray)
