@@ -44,8 +44,12 @@ def compareToOriginal(og, new, fig_title, filename=None, save_dir="./results"):
     fig, (ax1, ax2) = plt.subplots(1,2, constrained_layout=True, figsize=(10,5))
     fig.suptitle(fig_title)
 
-    ax1.imshow(og)
-    ax2.imshow(new)
+    if isGray(og) and isGray(new):
+        ax1.imshow(og, cmap='gray')
+        ax2.imshow(new, cmap='gray')
+    else:
+        ax1.imshow(og)
+        ax2.imshow(new)
 
     if filename:
         fig.savefig(os.path.join(save_dir, filename))
@@ -106,11 +110,14 @@ def conv2D(image_array, kernel, pad=True, dtype=np.uint8):
 
 class filters:
     # type = ["mean", "gausian"]
-    def generateKernel(self, kernel_type, kernel_size = 3, sigma=1):
+    def generateKernel(self, kernel_type, kernel_size = 3, sigma=1, image= None):
+        
         if kernel_type == 'mean':
             return np.ones((kernel_size, kernel_size))/(kernel_size**2)
         if kernel_type == "Gaussian":
             return self.Gaussian_kernel(kernel_size, sigma)
+        if kernel_type == "median":
+            return self.median_filter(image,kernel_size)
 
     def Gaussian(self, x,y, variance):
         kernel = np.exp((x**2 + y**2)/(-2*variance))/((2*np.pi)*variance)
@@ -126,5 +133,23 @@ class filters:
         # kernel /= np.sum(kernel)
 
         return kernel
+    
+
+    def median_filter(self,images,kernel_size):
+        image_height, image_width = images.shape[:2]
+        pad_size = kernel_size //2
+        padded_image = np.pad(images,pad_size)
+        filtered_images = np.ones_like(images)
+        
+        for i in range(image_height):
+            for j in range(image_width):
+                window = padded_image[i:i+kernel_size,j:j+ kernel_size]
+                # print(window)
+                # break
+                filtered_images[i,j] = np.median(window)
+            # break
+                
+        return filtered_images
+    
 
     

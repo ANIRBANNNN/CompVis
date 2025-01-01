@@ -18,8 +18,16 @@ Example
 Results
 ![Result of mean filter](./results/mean_result.jpg)
 
+### Median Filter
+Example 
+
+``python3 -m spatial_filters.median --input ./images/cat_saltpepper.jpg --kernel_size 3 --save --compare``
+
+Result
+![Result of median filter](./results/med_result.jpg)
+
 ## TODO
-* Spetial filters (~~mean~~, median, gaussian)
+* Spetial filters (~~mean~~, ~~median~~, ~~gaussian~~)
 * Frequency domain filter (High pass, low pass, ideal, gaussian, butterworth)
 * Pixel wise operations (contrast, brightness, grayscale)
 * White Balancing, Retinex
